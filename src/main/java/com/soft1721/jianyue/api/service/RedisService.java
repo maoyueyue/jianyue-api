@@ -7,6 +7,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis服务类，简单整合，用来存取缓存数据，实际项目中可以根据需求创建interface，impl
@@ -21,7 +22,7 @@ public class RedisService {
         RedisSerializer redisSerializer =new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
         ValueOperations<String,Object> vo = redisTemplate.opsForValue();
-        vo.set(key, value);
+        vo.set(key, value, 30L, TimeUnit.SECONDS);
     }
 
     public Object get(String key) {

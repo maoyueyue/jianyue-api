@@ -8,4 +8,6 @@ public class StatusConst {
     public static final int USER_STATUS_ERROR = 4;
     public static final int MOBILE_EXIST = 5;
     public static final int VERIFYCODE_ERROR = 6;
+    public static final int USER_MOBILE_UNEXIST=7;
+    public static final int CODE_USELESS=8;
 }

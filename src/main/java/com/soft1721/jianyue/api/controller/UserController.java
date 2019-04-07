@@ -1,11 +1,13 @@
 package com.soft1721.jianyue.api.controller;
 
 import com.aliyun.oss.OSSClient;
+import com.soft1721.jianyue.api.config.RedisConfig;
 import com.soft1721.jianyue.api.entity.User;
 import com.soft1721.jianyue.api.entity.dto.UserDTO;
 import com.soft1721.jianyue.api.service.RedisService;
 import com.soft1721.jianyue.api.service.UserService;
 import com.soft1721.jianyue.api.util.*;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,13 +88,35 @@ public class UserController {
         return ResponseResult.success(user);
     }
 
-    @PostMapping("/username")
+    @PostMapping("/nickname")
     public String nameUpload(@RequestParam("nickname") String nickname, @RequestParam("userId") int userId) {
         System.out.println(userId);
         User user=userService.getUserById(userId);
         user.setNickname(nickname);
         userService.updateUser(user);
         return nickname;
+    }
+
+    @PostMapping("/changepsd")
+    public String changePsd(@RequestParam("password") String password, @RequestParam("mobile") String mobile) {
+        System.out.println(mobile);
+        User user=userService.getUserByMobile(mobile);
+        user.setPassword(StringUtil.getBase64Encoder(password));
+        userService.updateUser(user);
+        return mobile;
+    }
+
+    @PostMapping(value = "/fgtverify")
+    public ResponseResult forgetVerifyCode(@RequestParam("mobile") String mobile) {
+        User user = userService.getUserByMobile(mobile);
+        if (user == null) {
+            return ResponseResult.error(StatusConst.USER_MOBILE_UNEXIST, MsgConst.USER_MOBILE_UNEXIST);
+        } else {
+            String verifyCode = SMSUtil.send(mobile);
+            System.out.println(verifyCode);
+            redisService.set(mobile, verifyCode);
+            return ResponseResult.success();
+        }
     }
 
     @PostMapping(value = "/verify")
@@ -111,14 +135,20 @@ public class UserController {
 
     @PostMapping(value = "/check")
     public ResponseResult checkVerifyCode(@RequestParam("mobile") String mobile, @RequestParam("verifyCode") String verifyCode) {
-        String code = redisService.get(mobile).toString();
-        System.out.println(code + "---");
-        System.out.println(verifyCode);
-        if (code.equals(verifyCode)) {
-            return ResponseResult.success();
-        } else {
-            return ResponseResult.error(StatusConst.VERIFYCODE_ERROR, MsgConst.VERIFYCODE_ERROR);
+
+            String code = null;
+            try {
+                code = redisService.get(mobile).toString();
+        }catch (NullPointerException e){
+                return ResponseResult.error(StatusConst.CODE_USELESS, MsgConst.CODE_USELESS);
         }
+            System.out.println(code + "---");
+            System.out.println(verifyCode);
+            if (code.equals(verifyCode)) {
+                return ResponseResult.success();
+            } else {
+                return ResponseResult.error(StatusConst.VERIFYCODE_ERROR, MsgConst.VERIFYCODE_ERROR);
+            }
     }
 
 
