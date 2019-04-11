@@ -33,9 +33,9 @@ public class FollowController {
         followService.deleteFollow(fromUId, toUId);
         return ResponseResult.success();
     }
-    @GetMapping(value = "/{id}")
-    public ResponseResult getfollowlist(@PathVariable("id") int id) {
-        List<FollowVO> followVOs=followService.getFollowsByUId(id);
+    @GetMapping(value = "/list")
+    public ResponseResult getfollowlist(@RequestParam("fromUId") int fromUId) {
+        List<FollowVO> followVOs=followService.getFollowsByUId(fromUId);
         return ResponseResult.success(followVOs);
     }
 }
