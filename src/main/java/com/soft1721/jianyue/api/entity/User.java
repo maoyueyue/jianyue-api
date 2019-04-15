@@ -11,6 +11,7 @@ public class User {
     private String password;
     private String nickname;
     private String token;
+    private Integer score;
     private Short status;
     private Date regtime;
     private String avatar;

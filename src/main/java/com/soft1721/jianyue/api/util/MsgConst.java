@@ -12,4 +12,6 @@ public class MsgConst {
     public static final String CODE_USELESS="验证码失效";
     public static final String FOLLOWED="已关注";
     public static final String NO_FOLLOWED="未关注";
+    public static final String LIKED="喜欢";
+    public static final String NO_LIKED="不喜欢";
 }

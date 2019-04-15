@@ -2,6 +2,7 @@ package com.soft1721.jianyue.api.service.impl;
 
 import com.soft1721.jianyue.api.entity.Follow;
 import com.soft1721.jianyue.api.entity.vo.FollowVO;
+import com.soft1721.jianyue.api.entity.vo.FollowedVO;
 import com.soft1721.jianyue.api.mapper.FollowMapper;
 import com.soft1721.jianyue.api.service.FollowService;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,11 @@ public class FollowServiceImpl implements FollowService {
     @Override
     public List<FollowVO> getFollowsByUId(int fromUId) {
         return followMapper.getFollowsByUId(fromUId);
+    }
+
+    @Override
+    public List<FollowedVO> getFollowedByToUId(int toUId) {
+        return followMapper.getFollowedByToUId(toUId);
     }
 
     @Override

@@ -14,6 +14,7 @@ public interface UserMapper {
             @Result(property = "avatar", column = "avatar"),
             @Result(property = "status", column = "status"),
             @Result(property = "regtime", column = "regtime"),
+            @Result(property = "score", column = "score"),
             @Result(property = "token", column = "token")
     })
     @Select("SELECT * FROM t_user WHERE mobile = #{mobile} ")
@@ -26,13 +27,14 @@ public interface UserMapper {
             @Result(property = "nickname", column = "nickname"),
             @Result(property = "avatar", column = "avatar"),
             @Result(property = "status", column = "status"),
+            @Result(property = "score", column = "score"),
             @Result(property = "regtime", column = "regtime"),
             @Result(property = "token", column = "token")
     })
     @Select("SELECT * FROM t_user WHERE id = #{id} ")
     User getUserById(int id);
 
-    @Update("UPDATE t_user SET password=#{password},nickname=#{nickname},avatar=#{avatar},status=#{status},token=#{token} WHERE id =#{id}")
+    @Update("UPDATE t_user SET score=#{score},password=#{password},nickname=#{nickname},avatar=#{avatar},status=#{status},token=#{token} WHERE id =#{id}")
     void updateUser(User user);
 
     @Insert("INSERT INTO t_user(mobile,password,nickname,avatar,regtime,status)" +

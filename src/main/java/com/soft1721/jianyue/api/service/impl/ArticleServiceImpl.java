@@ -41,4 +41,9 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles=articleMapper.selectArticleByUid(uId);
         return articles;
     }
+
+    @Override
+    public void deleteArticleById(int id) {
+        articleMapper.deleteArticleById(id);
+    }
 }

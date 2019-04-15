@@ -2,6 +2,7 @@ package com.soft1721.jianyue.api.mapper;
 
 import com.soft1721.jianyue.api.entity.Follow;
 import com.soft1721.jianyue.api.entity.vo.FollowVO;
+import com.soft1721.jianyue.api.entity.vo.FollowedVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -23,6 +24,13 @@ public interface FollowMapper {
     })
     @Select("SELECT a.to_uid,b.nickname,b.avatar FROM t_follow a LEFT JOIN t_user b ON a.to_uid = b.id WHERE a.from_uid = #{fromUId}  ")
     List<FollowVO> getFollowsByUId(int fromUId);
+    @Results({
+            @Result(property = "fromUId", column = "from_uid"),
+            @Result(property = "nickname", column = "nickname"),
+            @Result(property = "avatar", column = "avatar")
+    })
+    @Select("SELECT a.from_uid,b.nickname,b.avatar FROM t_follow a LEFT JOIN t_user b ON a.from_uid = b.id WHERE a.to_uid = #{toUId}  ")
+    List<FollowedVO> getFollowedByToUId(int toUId);
 
     @Insert("INSERT INTO t_follow (from_uid,to_uid) VALUES (#{fromUId},#{toUId}) ")
     void insertFollow(Follow follow);

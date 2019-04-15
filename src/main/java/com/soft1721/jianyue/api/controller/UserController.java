@@ -97,6 +97,15 @@ public class UserController {
         return nickname;
     }
 
+    @PostMapping("/score")
+    public ResponseResult scoreUpload(@RequestParam("score") int score, @RequestParam("userId") int userId) {
+        System.out.println(userId);
+        User user=userService.getUserById(userId);
+        user.setScore(score);
+        userService.updateUser(user);
+        return ResponseResult.success();
+    }
+
     @PostMapping("/changepsd")
     public String changePsd(@RequestParam("password") String password, @RequestParam("mobile") String mobile) {
         System.out.println(mobile);

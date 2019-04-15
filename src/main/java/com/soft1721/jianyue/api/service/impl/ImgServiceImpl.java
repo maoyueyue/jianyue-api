@@ -21,4 +21,9 @@ public class ImgServiceImpl implements ImgService {
     public void insertImg(Img img) {
         imgMapper.insertImg(img);
     }
+
+    @Override
+    public void deleteImg(int aId) {
+        imgMapper.deleteImg(aId);
+    }
 }

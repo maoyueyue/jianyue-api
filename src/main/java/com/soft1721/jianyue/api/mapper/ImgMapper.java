@@ -1,10 +1,7 @@
 package com.soft1721.jianyue.api.mapper;
 
 import com.soft1721.jianyue.api.entity.Img;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -19,4 +16,7 @@ public interface ImgMapper {
 
     @Insert("INSERT INTO t_image(a_id,img_url) VALUES (#{aId},#{imgUrl})")
     void insertImg(Img img);
+
+    @Delete("DELETE FROM t_image WHERE a_id = #{aId}")
+    void deleteImg(int aId);
 }

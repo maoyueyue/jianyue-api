@@ -37,6 +37,7 @@ public interface UserService {
      */
     void updateUser(User user);
 
+
     /**
      * 用户注册方法
      * @param userDTO
