@@ -1,5 +1,6 @@
 package com.soft1721.jianyue.api.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.soft1721.jianyue.api.entity.Article;
 import com.soft1721.jianyue.api.entity.Follow;
 import com.soft1721.jianyue.api.entity.Img;
@@ -31,7 +32,8 @@ public class ArticleController {
     private LikeService likeService;
 
     @GetMapping(value = "/list")
-    public ResponseResult getAll() {
+    public ResponseResult getAll(int page, int size) {
+        PageHelper.startPage(page,size);
         List<ArticleVO> articleList = articleService.selectAll();
         return ResponseResult.success(articleList);
     }

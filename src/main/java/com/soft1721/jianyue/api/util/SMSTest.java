@@ -24,8 +24,8 @@ public class SMSTest {
         request.setAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", "18136657760");
-        request.putQueryParameter("SignName", "****");
-        request.putQueryParameter("TemplateCode", "SMS_135805735");
+        request.putQueryParameter("SignName", "简阅");
+        request.putQueryParameter("TemplateCode", "SMS_163620633");
         request.putQueryParameter("TemplateParam", "{\"code\":\"888888\"}");
         try {
             CommonResponse response = client.getCommonResponse(request);

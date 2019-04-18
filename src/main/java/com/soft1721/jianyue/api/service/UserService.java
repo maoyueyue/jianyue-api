@@ -3,6 +3,8 @@ package com.soft1721.jianyue.api.service;
 import com.soft1721.jianyue.api.entity.User;
 import com.soft1721.jianyue.api.entity.dto.UserDTO;
 
+import java.util.List;
+
 public interface UserService {
 
     /**
@@ -36,7 +38,7 @@ public interface UserService {
      * @param user
      */
     void updateUser(User user);
-
+    List<User> selectAll();
 
     /**
      * 用户注册方法
