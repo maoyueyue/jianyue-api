@@ -32,8 +32,8 @@ public class ArticleController {
     private LikeService likeService;
 
     @GetMapping(value = "/list")
-    public ResponseResult getAll(int page, int size) {
-        PageHelper.startPage(page,size);
+    public ResponseResult getAll() {
+//        PageHelper.startPage(page,size);
         List<ArticleVO> articleList = articleService.selectAll();
         return ResponseResult.success(articleList);
     }
